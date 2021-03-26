@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS families;
+DROP TABLE IF EXISTS users;
