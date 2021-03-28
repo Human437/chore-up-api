@@ -33,4 +33,24 @@ choresRouter
       .catch(next)
   })
 
+choresRouter
+  .route('/:choreId')
+  .all((req,res,next) => {
+    const knexInstance = req.app.get('db')
+    ChoresService.getChoreById(knexInstance,req.params.choreId)
+      .then(chore => {
+        if(!chore){
+          return res.status(404).json({
+            error: {message: `Chore doesn't exist`}
+          })
+        }
+        res.chore = chore
+        next()
+      })
+      .catch(next)
+  })
+  .get((req,res,next) => {
+    res.json(serializeChore(res.chore))
+  })
+
 module.exports = choresRouter
