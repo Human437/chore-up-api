@@ -52,5 +52,24 @@ choresRouter
   .get((req,res,next) => {
     res.json(serializeChore(res.chore))
   })
+  .patch(jsonParser,(req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const {value,status,comments} = req.body
+    const choreInfoToUpdate = {value,status,comments}
+    const id = req.params.choreId
+
+    if (typeof value === 'undfined' && typeof status === 'undefined' && typeof comments === 'undefined'){
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain at least one of 'value', 'status', or 'comments'`
+        }
+      })
+    }
+    ChoresService.updateChore(knexInstance,id,choreInfoToUpdate)
+      .then(
+        res.status(204).end()
+      )
+      .catch(next)
+  })
 
 module.exports = choresRouter
