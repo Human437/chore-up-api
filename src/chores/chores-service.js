@@ -22,3 +22,5 @@ const ChoresService = {
       .delete()
   }
 }
+
+module.exports = ChoresService
