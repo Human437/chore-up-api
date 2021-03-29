@@ -2,7 +2,7 @@ const expresss = require('express')
 const xss = require('xss')
 const ChoresService = require('./chores-service')
 
-const choresRouter = expresss.Router()
+const ChoresRouter = expresss.Router()
 const jsonParser = expresss.json()
 
 const serializeChore = chore => ({
@@ -13,7 +13,7 @@ const serializeChore = chore => ({
   comments: xss(chore.comments)
 })
 
-choresRouter
+ChoresRouter
   .route('/')
   .post(jsonParser,(req,res,next)=>{
     const knexInstance = req.app.get('db')
@@ -33,7 +33,7 @@ choresRouter
       .catch(next)
   })
 
-choresRouter
+ChoresRouter
   .route('/:choreId')
   .all((req,res,next) => {
     const knexInstance = req.app.get('db')
@@ -81,4 +81,4 @@ choresRouter
       .catch(next)
   })
 
-module.exports = choresRouter
+module.exports = ChoresRouter

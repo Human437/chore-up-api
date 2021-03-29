@@ -5,7 +5,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const validateBearerToken = require('./validate-bearer-token')
-const choresRouter = require('./chores/chores-router')
+const ChoresRouter = require('./chores/chores-router')
 
 const app = express()
 
@@ -18,7 +18,7 @@ app.use(helmet())
 app.use(cors())
 
 app.use(validateBearerToken)
-app.use('/api/chores',choresRouter)
+app.use('/api/chores',ChoresRouter)
 
 app.get('/',(req,res)=>{
   res.send('Hello, world!')
