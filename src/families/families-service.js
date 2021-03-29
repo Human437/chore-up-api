@@ -1,22 +1,22 @@
 const FamiliesService = {
-  getChoreById(knex,id){
+  getFamilyById(knex,id){
     return knex.from('families').select('*').where('id',id).first()
   },
-  insertChore(knex,chore){
+  insertFamily(knex,family){
     return knex
-      .insert(chore)
+      .insert(family)
       .into('families')
       .returning('*')
       .then(rows => {
         return rows[0]
       })
   },
-  updateChore(knex,id,newChoreFields){
+  updateFamily(knex,id,newFamilyFields){
     return knex('families')
       .where({id})
-      .update(newChoreFields)
+      .update(newFamilyFields)
   },
-  deleteChore(knex,id){
+  deleteFamily(knex,id){
     return knex('families')
       .where({id})
       .delete()
