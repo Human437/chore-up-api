@@ -50,5 +50,14 @@ FamiliesRouter
   .get((req,res,next) => {
     res.json(serializeFamily(res.family))
   })
+  .delete((req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const id = req.params.familyId
+    FamiliesService.deleteFamily(knexInstance,id)
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
 
 module.exports = FamiliesRouter
