@@ -53,5 +53,14 @@ UsersRouter
   .get((req,res,next) => {
     res.json(serializeUser(res.user))
   })
+  .delete((req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const id = req.params.userId
+    UsersService.deleteUser(knexInstance,id)
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
 
 module.exports = UsersRouter
