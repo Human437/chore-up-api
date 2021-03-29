@@ -8,6 +8,7 @@ const validateBearerToken = require('./validate-bearer-token')
 const ChoresRouter = require('./chores/chores-router')
 const FamiliesRouter = require('./families/families-router')
 const UsersRouter = require('./users/users-router')
+const User_ChoresRouter = require('./user_chores/user_chores-router')
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use(validateBearerToken)
 app.use('/api/chores',ChoresRouter)
 app.use('/api/families',FamiliesRouter)
 app.use('/api/users',UsersRouter)
+app.use('/api/user_chores',User_ChoresRouter)
 
 app.get('/',(req,res)=>{
   res.send('Hello, world!')
