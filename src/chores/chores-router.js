@@ -58,7 +58,7 @@ ChoresRouter
     const choreInfoToUpdate = {value,status,comments}
     const id = req.params.choreId
 
-    if (typeof value === 'undfined' && typeof status === 'undefined' && typeof comments === 'undefined'){
+    if (typeof value === 'undefined' && typeof status === 'undefined' && typeof comments === 'undefined'){
       return res.status(400).json({
         error: {
           message: `Request body must contain at least one of 'value', 'status', or 'comments'`
