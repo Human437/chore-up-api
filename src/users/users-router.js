@@ -21,7 +21,7 @@ UsersRouter
     const {name,level,xp_till_level_up,email,hashed_password} = req.body
     const newUser = {name,level,xp_till_level_up,email,hashed_password}
     for (const [key,value] of Object.entries(newUser))
-    if(value === null)
+    if(typeof value === 'undefined')
     return res.status(400).json({
       error:{message: `Missing '${key}' in request body`}
     })

@@ -20,7 +20,7 @@ ChoresRouter
     const {name,value,status,comments} = req.body
     const newChore = {name,value,status,comments}
     for (const [key,value] of Object.entries(newChore))
-    if(value === null)
+    if(typeof value === 'undefined')
     return res.status(400).json({
       error:{message: `Missing '${key}' in request body`}
     })

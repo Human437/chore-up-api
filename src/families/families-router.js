@@ -18,7 +18,7 @@ FamiliesRouter
     const {admin,code_to_join} = req.body
     const newFamily = {admin,code_to_join}
     for (const [key,value] of Object.entries(newFamily))
-    if(value === null)
+    if(typeof value === 'undefined')
     return res.status(400).json({
       error:{message: `Missing '${key}' in request body`}
     })
