@@ -59,5 +59,24 @@ FamiliesRouter
       })
       .catch(next)
   })
+  .patch(jsonParser,(req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const {admin,code_to_join} = req.body
+    const familyInfoToUpdate = {admin,code_to_join}
+    const id = req.params.familyId
+    console.log(typeof admin)
+    if (typeof admin === 'undefined' && typeof code_to_join === 'undefined'){
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain either 'admin' or 'code_to_join'`
+        }
+      })
+    }
+    FamiliesService.updateFamily(knexInstance,id,familyInfoToUpdate)
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
 
 module.exports = FamiliesRouter
