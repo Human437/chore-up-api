@@ -66,9 +66,18 @@ choresRouter
       })
     }
     ChoresService.updateChore(knexInstance,id,choreInfoToUpdate)
-      .then(
+      .then(numRowsAffected => {
         res.status(204).end()
-      )
+      })
+      .catch(next)
+  })
+  .delete((req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const id = req.params.choreId
+    ChoresService.deleteChore(knexInstance,id)
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
       .catch(next)
   })
 
