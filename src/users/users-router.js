@@ -62,5 +62,30 @@ UsersRouter
       })
       .catch(next)
   })
+  .patch(jsonParser,(req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const {name,level,xp_till_level_up,email,hashed_password} = req.body
+    const userInfoToUpdate = {name,level,xp_till_level_up,email,hashed_password}
+    const id = req.params.userId
+
+    let containsNone = true;
+    for (const [key,value] of Object.entries(userInfoToUpdate)){
+      if (typeof value !== 'undefined'){
+        containsNone = false
+      }
+    }
+    if(containsNone){
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain at least one of 'name', 'level', 'xp_till_level_up', 'email', or 'hashed_password'`
+        }
+      })
+    }
+    UsersService.updateUser(knexInstance,id,userInfoToUpdate)
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
 
 module.exports = UsersRouter
