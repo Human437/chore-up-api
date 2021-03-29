@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config')
 const validateBearerToken = require('./validate-bearer-token')
 const ChoresRouter = require('./chores/chores-router')
 const FamiliesRouter = require('./families/families-router')
+const UsersRouter = require('./users/users-router')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(cors())
 app.use(validateBearerToken)
 app.use('/api/chores',ChoresRouter)
 app.use('/api/families',FamiliesRouter)
+app.use('/api/users',UsersRouter)
 
 app.get('/',(req,res)=>{
   res.send('Hello, world!')
