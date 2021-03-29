@@ -31,4 +31,24 @@ FamiliesRouter
       .catch(next)
   })
 
+FamiliesRouter
+  .route('/:familyId')
+  .all((req,res,next) => {
+    const knexInstance = req.app.get('db')
+    FamiliesService.getFamilyById(knexInstance,req.params.familyId)
+      .then(family => {
+        if(!family){
+          return res.status(404).json({
+            error: {message: `Family doesn't exist`}
+          })
+        }
+        res.family = family
+        next()
+      })
+      .catch(next)
+  })
+  .get((req,res,next) => {
+    res.json(serializeFamily(res.family))
+  })
+
 module.exports = FamiliesRouter
