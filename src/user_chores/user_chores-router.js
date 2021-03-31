@@ -1,7 +1,6 @@
 const expresss = require('express')
 const xss = require('xss')
 const User_ChoresService = require('./user_chores-service')
-const ChoresService = require('./../chores/chores-service')
 const e = require('express')
 
 const User_ChoresRouter = expresss.Router()
