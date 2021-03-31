@@ -71,6 +71,9 @@ User_ChoresRouter
       })
       .catch(next)
   })
+  .get((req,res,next) => {
+    res.json(serializeUser_Chores(res.user_chore))
+  })
   .patch(jsonParser,(req,res,next) => {
     const knexInstance = req.app.get('db')
     const {user_id,chore_id} = req.body
@@ -94,7 +97,7 @@ User_ChoresRouter
   .delete((req,res,next) => {
     const knexInstance = req.app.get('db')
     const id = req.params.user_choreId
-    User_ChoresService.deleteChore(knexInstance,id)
+    User_ChoresService.deleteUser_Chore(knexInstance,id)
       .then(numRowsAffected => {
         res.status(204).end()
       })
