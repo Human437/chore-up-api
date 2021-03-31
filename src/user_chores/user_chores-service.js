@@ -20,6 +20,9 @@ const User_ChoresService = {
     return knex('user_chores')
       .where({id})
       .delete()
+  },
+  getUser_ChoresById(knex,id){
+    return knex.from('user_chores').select('*').where('id',id).first()
   }
 }
 
