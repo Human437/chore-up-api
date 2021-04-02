@@ -99,4 +99,29 @@ describe('Users Endpoints', () => {
       })
     })
   })
+  describe('DELETE /api/users/:userId', () => {
+    context(`Given that thers are users in the db to delete`, () => {
+      const testUsers = fixtures.makeUsersArray()
+      const userId = 1
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      it('responds with 204 and deletes the specified user', () => {
+        return supertest(app)
+          .delete(`/api/users/${userId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(204)
+          .then(res => 
+            supertest(app)  
+              .get(`/api/users/${userId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(404,{error: {message: `User doesn't exist`}})
+          )
+      })
+    })
+  })
 })
