@@ -124,4 +124,35 @@ describe('Users Endpoints', () => {
       })
     })
   })
+  describe('POST /api/users', () => {
+    context(`Given that all the fields are provided`, () => {
+      const newUser = {
+        name: "Ryan",
+        level: 10,
+        xp_till_level_up: 1000,
+        email: "test@test.com",
+        hashed_password: "FakePassword"
+      }
+      it('Adds a new user and returns with 201 and the user just added', () => {
+        return supertest(app)
+        .post('/api/users/')
+        .send(newUser)
+        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+        .expect(201)
+        .expect(res => {
+          expect(res.body.name).to.eql(newUser.name)
+          expect(res.body.level).to.eql(newUser.level)
+          expect(res.body.xp_till_level_up).to.eql(newUser.xp_till_level_up)
+          expect(res.body.email).to.eql(newUser.email)
+          expect(res.body.hashed_password).to.eql(newUser.hashed_password)
+        })
+        .then(res =>
+          supertest(app)  
+            .get(`/api/users/${res.body.id}`)
+            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+            .expect(res.body)
+        )
+      })
+    })
+  })
 })
