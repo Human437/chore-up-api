@@ -98,4 +98,29 @@ describe('Chores Endpoints', () => {
       })
     })
   })
+  describe('DELETE /api/chores/:choreId', () => {
+    context(`Given that thers are users in the db to delete`, () => {
+      const testChores = fixtures.makeChoresArray()
+      const choreId = 1
+
+      beforeEach('insert chores', () => {
+        return db
+          .into('chores')
+          .insert(testChores)
+      })
+
+      it('responds with 204 and deletes the specified chore', () => {
+        return supertest(app)
+          .delete(`/api/chores/${choreId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(204)
+          .then(res => 
+            supertest(app)  
+              .get(`/api/chores/${choreId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(404,{error: {message: `Chore doesn't exist`}})
+          )
+      })
+    })
+  })
 })
