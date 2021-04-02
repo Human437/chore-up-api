@@ -8,7 +8,7 @@ const jsonParser = expresss.json()
 const serializeChore = chore => ({
   id: chore.id,
   name: xss(chore.name),
-  value: xss(chore.value),
+  value: Number(xss(chore.value)),
   status: xss(chore.status),
   comments: xss(chore.comments)
 })
