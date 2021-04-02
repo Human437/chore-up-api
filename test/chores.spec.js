@@ -41,4 +41,61 @@ describe('Chores Endpoints', () => {
       })
     })
   })
+
+  describe('PATCH /api/chores/:choreId', () => {
+    context('Given there are chores in the database', () => {
+      const testChores = fixtures.makeChoresArray()
+      const choreId = 1
+
+      beforeEach('insert chores', () => {
+        return db
+          .into('chores')
+          .insert(testChores)
+      })
+
+      it('responds with 204 and updates the db when all fields are provided', () =>{
+        const updatedChore = {
+          value: 30,
+          status: 'In Process',
+          comments: "Test update for chore"
+        }
+        const expectedChore = {
+          ...testChores[choreId -1],
+          ...updatedChore
+        }
+        return supertest(app)
+          .patch(`/api/chores/${choreId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .send(updatedChore)
+          .expect(204)
+          .then(res =>
+            supertest(app)
+              .get(`/api/chores/${choreId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(expectedChore)
+          )
+      })
+
+      it('responds with 204 and updates the db when some fields are provided', () =>{
+        const updatedChore = {
+          value: 30,
+        }
+        const expectedChore = {
+          ...testChores[choreId -1],
+          ...updatedChore
+        }
+        return supertest(app)
+          .patch(`/api/chores/${choreId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .send(updatedChore)
+          .expect(204)
+          .then(res =>
+            supertest(app)
+              .get(`/api/chores/${choreId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(expectedChore)
+          )
+      })
+    })
+  })
 })
