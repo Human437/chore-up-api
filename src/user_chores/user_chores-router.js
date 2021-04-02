@@ -7,18 +7,18 @@ const jsonParser = expresss.json()
 
 const serializeJoinedUserChores = user_chores => ({
   id: user_chores.id,
-  user_id: xss(user_chores.user_id),
-  chore_id: xss(user_chores.chore_id),
+  user_id: Number(xss(user_chores.user_id)),
+  chore_id: Number(xss(user_chores.chore_id)),
   name: xss(user_chores.name),
-  value: xss(user_chores.value),
+  value: Number(xss(user_chores.value)),
   status: xss(user_chores.status),
   comments: xss(user_chores.comments)
 })
 
 const serializeUser_Chores = user_chores => ({
   id: user_chores.id,
-  user_id: xss(user_chores.user_id),
-  chore_id: xss(user_chores.chore_id)  
+  user_id: Number(xss(user_chores.user_id)),
+  chore_id: Number(xss(user_chores.chore_id))  
 })
 
 User_ChoresRouter

@@ -7,8 +7,8 @@ const jsonParser = expresss.json()
 
 const serializeFamily_Members = family_member => ({
   id: family_member.id,
-  user_id: xss(family_member.user_id),
-  family_id: xss(family_member.family_id),
+  user_id: Number(xss(family_member.user_id)),
+  family_id: Number(xss(family_member.family_id)),
 })
 
 Family_MembersRouter

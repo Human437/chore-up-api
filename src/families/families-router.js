@@ -7,7 +7,7 @@ const jsonParser = expresss.json()
 
 const serializeFamily = family => ({
   id: family.id,
-  admin: xss(family.admin),
+  admin: Number(xss(family.admin)),
   code_to_join: xss(family.code_to_join)
 })
 

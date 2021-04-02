@@ -8,8 +8,8 @@ const jsonParser = expresss.json()
 const serializeUser = user => ({
   id: user.id,
   name: xss(user.name),
-  level: xss(user.level),
-  xp_till_level_up: xss(user.xp_till_level_up),
+  level: Number(xss(user.level)),
+  xp_till_level_up: Number(xss(user.xp_till_level_up)),
   email: xss(user.email),
   hashed_password: xss(user.hashed_password)
 })
