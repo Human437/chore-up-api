@@ -99,7 +99,7 @@ describe('Chores Endpoints', () => {
     })
   })
   describe('DELETE /api/chores/:choreId', () => {
-    context(`Given that thers are users in the db to delete`, () => {
+    context(`Given that thers are chores in the db to delete`, () => {
       const testChores = fixtures.makeChoresArray()
       const choreId = 1
 
@@ -120,6 +120,35 @@ describe('Chores Endpoints', () => {
               .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
               .expect(404,{error: {message: `Chore doesn't exist`}})
           )
+      })
+    })
+  })
+  describe('POST /api/chores', () => {
+    context(`Given that all the fields are provided`, () => {
+      const newChore = {
+        name: "Test chore",
+        value: 10,
+        status: "Done",
+        comments: "This is a test chore"
+      }
+      it('Adds a new chore and returns with 201 and the chore just added', () => {
+        return supertest(app)
+        .post('/api/chores/')
+        .send(newChore)
+        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+        .expect(201)
+        .expect(res => {
+          expect(res.body.name).to.eql(newChore.name)
+          expect(res.body.value).to.eql(newChore.value)
+          expect(res.body.status).to.eql(newChore.status)
+          expect(res.body.comments).to.eql(newChore.comments)
+        })
+        .then(res =>
+          supertest(app)  
+            .get(`/api/chores/${res.body.id}`)
+            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+            .expect(res.body)
+        )
       })
     })
   })
