@@ -41,4 +41,62 @@ describe('Users Endpoints', () => {
       })
     })
   })
+  describe('PATCH /api/users/:userId', () => {
+    context('Given there are users in the database', () => {
+      const testUsers = fixtures.makeUsersArray()
+      const userId = 1
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      it('responds with 204 and updates the db when all fields are provided', () =>{
+        const updatedUser = {
+          name: "Ryan",
+          level: 10,
+          xp_till_level_up: 1000,
+          email: "test@test.com",
+          hashed_password: "FakePassword"
+        }
+        const expectedUser = {
+          ...testUsers[userId -1],
+          ...updatedUser
+        }
+        return supertest(app)
+          .patch(`/api/users/${userId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .send(updatedUser)
+          .expect(204)
+          .then(res =>
+            supertest(app)
+              .get(`/api/users/${userId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(expectedUser)
+          )
+      })
+
+      it('responds with 204 and updates the db when some fields are provided', () =>{
+        const updatedUser = {
+          name: "Ryan",
+        }
+        const expectedUser = {
+          ...testUsers[userId -1],
+          ...updatedUser
+        }
+        return supertest(app)
+          .patch(`/api/users/${userId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .send(updatedUser)
+          .expect(204)
+          .then(res =>
+            supertest(app)
+              .get(`/api/users/${userId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(expectedUser)
+          )
+      })
+    })
+  })
 })
