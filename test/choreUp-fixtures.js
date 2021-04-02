@@ -240,3 +240,11 @@ function makeUsers_ChoresArray(){
     },
   ]
 }
+
+module.exports = {
+  makeChoresArray,
+  makeUsersArray,
+  makeFamiliesArray,
+  makeFamily_MembersArray,
+  makeUsers_ChoresArray
+}
