@@ -166,12 +166,12 @@ function makeFamiliesArray(){
     {
       "id" : 1,
       "admin":1,
-      "code-2-join":"aJk3T"
+      "code_to_join":"aJk3T"
     },
     {
       "id" : 2,
       "admin":4,
-      "code-2-join":"bJk3T"
+      "code_to_join":"bJk3T"
     },
   ]
 }
