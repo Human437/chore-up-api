@@ -113,4 +113,36 @@ describe('Families Endpoints', () => {
       })
     })
   })
+  describe('DELETE /api/families/:familyId', () => {
+    context(`Given that thers are families in the db to delete`, () => {
+      const testFamilies = fixtures.makeFamiliesArray()
+      const testUsers = fixtures.makeUsersArray()
+      const familyId = 1
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert families', () => {
+        return db
+          .into('families')
+          .insert(testFamilies)
+      })
+
+      it('responds with 204 and deletes the specified family', () => {
+        return supertest(app)
+          .delete(`/api/families/${familyId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(204)
+          .then(res => 
+            supertest(app)  
+              .get(`/api/families/${familyId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(404,{error: {message: `Family doesn't exist`}})
+          )
+      })
+    })
+  })
 })
