@@ -167,4 +167,44 @@ describe('Family_Members Endpoints', () => {
       })
     })
   })
+  describe('POST /api/family_members', () => {
+    context(`Given that all the fields are provided`, () => {
+      const testUsers = fixtures.makeUsersArray()
+      const testFamilies = fixtures.makeFamiliesArray()
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert families', () => {
+        return db
+          .into('families')
+          .insert(testFamilies)
+      })
+
+      const newFamily_Member = {
+        user_id: 3,
+        family_id: 1
+      }
+      it('Adds a new family_member and returns with 201 and the family_member just added', () => {
+        return supertest(app)
+        .post('/api/family_members/')
+        .send(newFamily_Member)
+        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+        .expect(201)
+        .expect(res => {
+          expect(res.body.admin).to.eql(newFamily_Member.admin)
+          expect(res.body.code_to_join).to.eql(newFamily_Member.code_to_join)
+        })
+        .then(res =>
+          supertest(app)  
+            .get(`/api/family_members/${res.body.id}`)
+            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+            .expect(res.body)
+        )
+      })
+    })
+  })
 })
