@@ -207,4 +207,38 @@ describe('Family_Members Endpoints', () => {
       })
     })
   })
+  describe('GET /api/family_members/family/:familyId', () => {
+    context('Given that the user exists and has corresponding chores', () => {
+      const testFamily_Members = fixtures.makeFamily_MembersArray()
+      const testUsers = fixtures.makeUsersArray()
+      const testFamilies = fixtures.makeFamiliesArray()
+      const family_memberId = 1
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert families', () => {
+        return db
+          .into('families')
+          .insert(testFamilies)
+      })
+
+      beforeEach('insert family_members', () => {
+        return db
+          .into('family_members')
+          .insert(testFamily_Members)
+      })
+      it('Returns an array of objects containing all the family members corresponding to the specified family', () => {
+        const family_id = 1
+        const expectedMembers = fixtures.makeReturnedFamily_MembersArray()
+        return supertest(app)
+          .get(`/api/family_members/family/${family_id}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(200, expectedMembers)
+      })
+    })
+  })
 })
