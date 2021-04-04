@@ -128,4 +128,43 @@ describe('User_Chores Endpoints', () => {
       })
     })
   })
+  describe('DELETE /api/user_chores/:user_choreId', () => {
+    context(`Given that thers are user_chores in the db to delete`, () => {
+      const testUser_Chores = fixtures.makeUser_ChoresArray()
+      const testUsers = fixtures.makeUsersArray()
+      const testChores = fixtures.makeChoresArray()
+      const user_choreId = 1
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert chores', () => {
+        return db
+          .into('chores')
+          .insert(testChores)
+      })
+
+      beforeEach('insert user_chores', () => {
+        return db
+          .into('user_chores')
+          .insert(testUser_Chores)
+      })
+
+      it('responds with 204 and deletes the specified user_chore', () => {
+        return supertest(app)
+          .delete(`/api/user_chores/${user_choreId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(204)
+          .then(res => 
+            supertest(app)  
+              .get(`/api/user_chores/${user_choreId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(404,{error: {message: `User_chore doesn't exist`}})
+          )
+      })
+    })
+  })
 })
