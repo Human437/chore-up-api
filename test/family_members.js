@@ -25,7 +25,7 @@ describe('Family_Members Endpoints', () => {
   afterEach('cleanup', () => db('users').delete())
   afterEach('cleanup', () => db('families').delete())
 
-    describe('GET /api/family_members/:family_memberId', () => {
+  describe('GET /api/family_members/:family_memberId', () => {
     context('Given there are family_members in the database', () => {
       const testFamily_Members = fixtures.makeFamily_MembersArray()
       const testUsers = fixtures.makeUsersArray()
@@ -56,6 +56,75 @@ describe('Family_Members Endpoints', () => {
           .get(`/api/family_members/${family_memberId}`)
           .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
           .expect(200, expectedFamily_Members)
+      })
+    })
+  })
+  describe('PATCH /api/family_members/:family_memberId', () => {
+    context('Given there are family_members in the database', () => {
+      const testFamily_Members = fixtures.makeFamily_MembersArray()
+      const testUsers = fixtures.makeUsersArray()
+      const testFamilies = fixtures.makeFamiliesArray()
+      const family_memberId = 1
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert families', () => {
+        return db
+          .into('families')
+          .insert(testFamilies)
+      })
+
+      beforeEach('insert family_members', () => {
+        return db
+          .into('family_members')
+          .insert(testFamily_Members)
+      })
+
+      it('responds with 204 and updates the db when all fields are provided', () =>{
+        const updatedFamily_Member = {
+          user_id: 3,
+          family_id: 1
+        }
+        const expectedFamily_Member = {
+          ...testFamily_Members[family_memberId -1],
+          ...updatedFamily_Member
+        }
+        return supertest(app)
+          .patch(`/api/family_members/${family_memberId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .send(updatedFamily_Member)
+          .expect(204)
+          .then(res =>
+            supertest(app)
+              .get(`/api/family_members/${family_memberId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(expectedFamily_Member)
+          )
+      })
+
+      it('responds with 204 and updates the db when some fields are provided', () =>{
+        const updatedFamily_Member = {
+          user_id: 3
+        }
+        const expectedFamily_Member = {
+          ...testFamily_Members[family_memberId -1],
+          ...updatedFamily_Member
+        }
+        return supertest(app)
+          .patch(`/api/family_members/${family_memberId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .send(updatedFamily_Member)
+          .expect(204)
+          .then(res =>
+            supertest(app)
+              .get(`/api/family_members/${family_memberId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(expectedFamily_Member)
+          )
       })
     })
   })
