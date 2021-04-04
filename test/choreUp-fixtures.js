@@ -211,7 +211,7 @@ function makeFamily_MembersArray(){
   ]
 }
 
-function makeUsers_ChoresArray(){
+function makeUser_ChoresArray(){
   return [
     {
       "id":1,
@@ -246,5 +246,5 @@ module.exports = {
   makeUsersArray,
   makeFamiliesArray,
   makeFamily_MembersArray,
-  makeUsers_ChoresArray
+  makeUser_ChoresArray
 }
