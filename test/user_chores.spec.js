@@ -207,4 +207,37 @@ describe('User_Chores Endpoints', () => {
       })
     })
   })
+  describe('GET /api/user_chores/user/:userId', () => {
+    context('Given that the user exists and has corresponding chores', () => {
+      const testUser_Chores = fixtures.makeUser_ChoresArray()
+      const testUsers = fixtures.makeUsersArray()
+      const testChores = fixtures.makeChoresArray()
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert chores', () => {
+        return db
+          .into('chores')
+          .insert(testChores)
+      })
+
+      beforeEach('insert user_chores', () => {
+        return db
+          .into('user_chores')
+          .insert(testUser_Chores)
+      })
+      it('Returns an array of objects containing all the chores corresponding to the specified user', () => {
+        const user_id = 1
+        const expectedChores = fixtures.makeReturnedUser_ChoresArray()
+        return supertest(app)
+          .get(`/api/user_chores/user/${user_id}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(200, expectedChores)
+      })
+    })
+  })
 })
