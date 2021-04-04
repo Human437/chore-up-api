@@ -128,4 +128,43 @@ describe('Family_Members Endpoints', () => {
       })
     })
   })
+  describe('DELETE /api/family_members/:family_memberId', () => {
+    context(`Given that thers are family_members in the db to delete`, () => {
+      const testFamily_Members = fixtures.makeFamily_MembersArray()
+      const testUsers = fixtures.makeUsersArray()
+      const testFamilies = fixtures.makeFamiliesArray()
+      const family_memberId = 1
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert families', () => {
+        return db
+          .into('families')
+          .insert(testFamilies)
+      })
+
+      beforeEach('insert family_members', () => {
+        return db
+          .into('family_members')
+          .insert(testFamily_Members)
+      })
+
+      it('responds with 204 and deletes the specified family_member', () => {
+        return supertest(app)
+          .delete(`/api/family_members/${family_memberId}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(204)
+          .then(res => 
+            supertest(app)  
+              .get(`/api/family_members/${family_memberId}`)
+              .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+              .expect(404,{error: {message: `Family_Member doesn't exist`}})
+          )
+      })
+    })
+  })
 })
