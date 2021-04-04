@@ -11,13 +11,24 @@ const serializeFamily_Members = family_member => ({
   family_id: Number(xss(family_member.family_id)),
 })
 
+const serializeJoinedFamily_Members = family_member => ({
+  id: family_member.id,
+  user_id: Number(xss(family_member.user_id)),
+  family_id: Number(xss(family_member.family_id)),
+  name: xss(family_member.name),
+  level: Number(xss(family_member.level)),
+  xp_till_level_up: Number(xss(family_member.xp_till_level_up)),
+  email: xss(family_member.email),
+  hashed_password: xss(family_member.hashed_password)
+})
+
 Family_MembersRouter
   .route('/family/:familyId')
   .get((req,res,next) => {
     const knexInstance = req.app.get('db')
     Family_MembersService.getAllMembersByFamilyId(knexInstance,req.params.familyId)
       .then(family_members => {
-        res.json(family_members)
+        res.json(family_members.map(serializeJoinedFamily_Members))
         next()
       })
       .catch(next)
