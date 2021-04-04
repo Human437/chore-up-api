@@ -241,10 +241,43 @@ function makeUser_ChoresArray(){
   ]
 }
 
+function makeReturnedUser_ChoresArray(){
+  return [
+    {
+      "id":1,
+      "user_id":1,
+      "chore_id":1,
+      "name":"Walk the dog",
+      "value":10,
+      "status":"Incomplete",
+      "comments":""
+    },
+    {
+      "id":2,
+      "user_id":1,
+      "chore_id":2,
+      "name":"Take Jack to school",
+      "value":20,
+      "status":"Incomplete",
+      "comments":""
+    },
+    {
+      "id":3,
+      "user_id":1,
+      "chore_id":3,
+      "name":"Go to the PO box",
+      "value":20,
+      "status":"Incomplete",
+      "comments":""
+    },
+  ]
+}
+
 module.exports = {
   makeChoresArray,
   makeUsersArray,
   makeFamiliesArray,
   makeFamily_MembersArray,
-  makeUser_ChoresArray
+  makeUser_ChoresArray,
+  makeReturnedUser_ChoresArray
 }
