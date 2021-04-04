@@ -273,11 +273,47 @@ function makeReturnedUser_ChoresArray(){
   ]
 }
 
+function makeReturnedFamily_MembersArray(){
+  return [
+    {
+      "id":1,
+      "user_id": 1,
+      "family_id":1,
+      "name":"Bob",
+      "level":1,
+      "xp_till_level_up":100,
+      "email":"hwpyxoutfugfqbusvz@twzhhq.com",
+      "hashed_password":"$2a$10$l1mqfAFPUolxGgJKL5tXHu4PUSoBNoD0JlM45RsBcaIcWkPa2UD0C",
+    },
+    {
+      "id":2,
+      "user_id": 2,
+      "family_id":1,
+      "name":"Jack",
+      "level":1,
+      "xp_till_level_up":100,
+      "email":"hwpyxoutfugfqbusvz@twzhhq.com",
+      "hashed_password":"$2a$10$l1mqfAFPUolxGgJKL5tXHu4PUSoBNoD0JlM45RsBcaIcWkPa2UD0C",
+    },
+    {
+      "id":3,
+      "user_id": 3,
+      "family_id":1,
+      "name":"Jill",
+      "level":1,
+      "xp_till_level_up":100,
+      "email":"hwpyxoutfugfqbusvz@twzhhq.com",
+      "hashed_password":"$2a$10$l1mqfAFPUolxGgJKL5tXHu4PUSoBNoD0JlM45RsBcaIcWkPa2UD0C",
+    },
+  ]
+}
+
 module.exports = {
   makeChoresArray,
   makeUsersArray,
   makeFamiliesArray,
   makeFamily_MembersArray,
   makeUser_ChoresArray,
-  makeReturnedUser_ChoresArray
+  makeReturnedUser_ChoresArray,
+  makeReturnedFamily_MembersArray,
 }
