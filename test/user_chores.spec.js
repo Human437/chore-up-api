@@ -167,4 +167,44 @@ describe('User_Chores Endpoints', () => {
       })
     })
   })
+  describe('POST /api/user_chores', () => {
+    context(`Given that all the fields are provided`, () => {
+      const testUsers = fixtures.makeUsersArray()
+      const testChores = fixtures.makeChoresArray()
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert chores', () => {
+        return db
+          .into('chores')
+          .insert(testChores)
+      })
+
+      const newUser_Chore = {
+        user_id: 3,
+        chore_id: 1
+      }
+      it('Adds a new user_chore and returns with 201 and the user_chore just added', () => {
+        return supertest(app)
+        .post('/api/user_chores/')
+        .send(newUser_Chore)
+        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+        .expect(201)
+        .expect(res => {
+          expect(res.body.admin).to.eql(newUser_Chore.admin)
+          expect(res.body.code_to_join).to.eql(newUser_Chore.code_to_join)
+        })
+        .then(res =>
+          supertest(app)  
+            .get(`/api/user_chores/${res.body.id}`)
+            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+            .expect(res.body)
+        )
+      })
+    })
+  })
 })
