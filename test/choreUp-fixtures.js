@@ -109,6 +109,8 @@ function makeChoresArray(){
 }
 
 function makeUsersArray(){
+  // Only use unhashedPassword for testing purposes
+  // unhashedPassword for users is: aB3!bnmv
   return [
     {
       "id":1,
