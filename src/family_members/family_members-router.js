@@ -18,6 +18,7 @@ const serializeJoinedFamily_Members = family_member => ({
   name: xss(family_member.name),
   level: Number(xss(family_member.level)),
   xp_till_level_up: Number(xss(family_member.xp_till_level_up)),
+  is_admin:xss(family_member.is_admin)==='true',
   email: xss(family_member.email),
   hashed_password: xss(family_member.hashed_password)
 })
