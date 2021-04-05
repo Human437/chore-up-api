@@ -17,6 +17,25 @@ const serializeUser = user => ({
 
 UsersRouter
   .route('/')
+  .get(jsonParser,(req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const email = req.query.email
+    if (typeof email === 'undefined'){
+      return res.status(400).json({
+        error: { message: `Missing email in request query` }
+      })
+    }
+    UsersService.getUserByEmail(knexInstance,email)
+      .then(user =>{
+        if(typeof user === 'undefined'){
+          return res.status(404).json({
+            error: { message: `The email provided is not associated with any account` }
+          })
+        }
+        res.json(serializeUser(user))
+      })
+      .catch(error => next(error))
+  })
   .post(jsonParser,(req,res,next)=>{
     const knexInstance = req.app.get('db')
     const {name,level,xp_till_level_up,is_admin,email,hashed_password} = req.body
