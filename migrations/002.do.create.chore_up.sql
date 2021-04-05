@@ -5,6 +5,7 @@ CREATE TABLE users(
   name TEXT NOT NULL,
   level NUMERIC NOT NULL,
   xp_till_level_up NUMERIC NOT NULL,
+  is_admin BOOLEAN NOT NULL,
   email TEXT NOT NULL,
   hashed_password TEXT NOT NULL
 );
