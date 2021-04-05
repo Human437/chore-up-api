@@ -157,4 +157,38 @@ describe('Users Endpoints', () => {
       })
     })
   })
+  describe('GET /api/users', () => {
+    context(`Given no users`,() => {
+      it(`responds with 400 when email is not provided`, () => {
+        return supertest(app)
+          .get('/api/users')
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(400,{error: { message: `Missing email in request query` }})
+      })
+    })
+  
+    context('Given there are users in the database', () => {
+      const testUsers = fixtures.makeUsersArray()
+  
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+  
+      it('gets the specified user by email from the store', () => {
+        return supertest(app)
+          .get(`/api/users?email=${testUsers[0].email}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(200,testUsers[0])
+      })
+
+      it('responds with 404 when email provided is not associated with a user', () => {
+        return supertest(app)
+          .get('/api/users?email=emailNotInDB@gmail.com')
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(404,{error: { message: `The email provided is not associated with any account` }})
+      })
+    })
+  })
 })
