@@ -10,6 +10,7 @@ const serializeUser = user => ({
   name: xss(user.name),
   level: Number(xss(user.level)),
   xp_till_level_up: Number(xss(user.xp_till_level_up)),
+  is_admin:xss(user.is_admin)==='true',
   email: xss(user.email),
   hashed_password: xss(user.hashed_password)
 })
@@ -18,8 +19,8 @@ UsersRouter
   .route('/')
   .post(jsonParser,(req,res,next)=>{
     const knexInstance = req.app.get('db')
-    const {name,level,xp_till_level_up,email,hashed_password} = req.body
-    const newUser = {name,level,xp_till_level_up,email,hashed_password}
+    const {name,level,xp_till_level_up,is_admin,email,hashed_password} = req.body
+    const newUser = {name,level,xp_till_level_up,is_admin,email,hashed_password}
     for (const [key,value] of Object.entries(newUser))
     if(typeof value === 'undefined')
     return res.status(400).json({
@@ -64,8 +65,8 @@ UsersRouter
   })
   .patch(jsonParser,(req,res,next) => {
     const knexInstance = req.app.get('db')
-    const {name,level,xp_till_level_up,email,hashed_password} = req.body
-    const userInfoToUpdate = {name,level,xp_till_level_up,email,hashed_password}
+    const {name,level,xp_till_level_up,email,hashed_password,is_admin} = req.body
+    const userInfoToUpdate = {name,level,xp_till_level_up,email,hashed_password,is_admin}
     const id = req.params.userId
 
     let containsNone = true;
@@ -77,7 +78,7 @@ UsersRouter
     if(containsNone){
       return res.status(400).json({
         error: {
-          message: `Request body must contain at least one of 'name', 'level', 'xp_till_level_up', 'email', or 'hashed_password'`
+          message: `Request body must contain at least one of 'name', 'level', 'xp_till_level_up', 'is_admin', 'email', or 'hashed_password'`
         }
       })
     }
