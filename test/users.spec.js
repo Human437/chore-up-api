@@ -57,6 +57,7 @@ describe('Users Endpoints', () => {
           name: "Ryan",
           level: 10,
           xp_till_level_up: 1000,
+          is_admin:false,
           email: "test@test.com",
           hashed_password: "FakePassword"
         }
@@ -130,6 +131,7 @@ describe('Users Endpoints', () => {
         name: "Ryan",
         level: 10,
         xp_till_level_up: 1000,
+        is_admin:true,
         email: "test@test.com",
         hashed_password: "FakePassword"
       }
