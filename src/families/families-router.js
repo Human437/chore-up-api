@@ -30,6 +30,25 @@ FamiliesRouter
       })
       .catch(next)
   })
+  .get(jsonParser,(req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const code_to_join = req.query.code_to_join
+    if (typeof code_to_join === 'undefined'){
+      return res.status(400).json({
+        error:{message: `Missing code_to_join in request query`}
+      })
+    }
+    FamiliesService.getFamilyByFamilyCode(knexInstance,code_to_join)
+      .then(family =>{
+        if(typeof family === 'undefined'){
+          return res.status(404).json({
+            error: {message: 'The code_to_join provided is not associated with any family'}
+          })
+        }
+        res.json(serializeFamily(family))
+      })
+      .catch(error => next(error))
+  })
 
 FamiliesRouter
   .route('/:familyId')
