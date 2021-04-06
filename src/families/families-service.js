@@ -20,7 +20,10 @@ const FamiliesService = {
     return knex('families')
       .where({id})
       .delete()
-  }
+  },
+  getFamilyByFamilyCode(knex,familyCode){
+    return knex.from('families').select('*').where('code_to_join',familyCode).first()
+  },
 }
 
 module.exports = FamiliesService
