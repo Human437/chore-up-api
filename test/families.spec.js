@@ -178,4 +178,36 @@ describe('Families Endpoints', () => {
       })
     })
   })
+  describe('GET /api/families', () => {
+    context('Given there are families in the database', () => {
+      const testFamilies = fixtures.makeFamiliesArray()
+      const testUsers = fixtures.makeUsersArray()
+
+      beforeEach('insert users', () => {
+        return db
+          .into('users')
+          .insert(testUsers)
+      })
+
+      beforeEach('insert families', () => {
+        return db
+          .into('families')
+          .insert(testFamilies)
+      })
+
+      it('Gets the specified family by family code from the database', () => {
+        return supertest(app)
+          .get(`/api/families?code_to_join=${testFamilies[0].code_to_join}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(200,testFamilies[0])
+      })
+
+      it('Responds with 404 when the code_to_join provided is not associated with a family', () => {
+        return supertest(app)
+          .get('/api/families?code_to_join=INVALID_CODE')
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(404,{error: {message: 'The code_to_join provided is not associated with any family'}})
+      })
+    })
+  })
 })
