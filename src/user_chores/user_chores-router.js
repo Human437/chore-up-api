@@ -11,7 +11,7 @@ const serializeJoinedUserChores = user_chores => ({
   chore_id: Number(xss(user_chores.chore_id)),
   name: xss(user_chores.name),
   value: Number(xss(user_chores.value)),
-  status: xss(user_chores.status),
+  done: xss(user_chores.done) === 'true',
   comments: xss(user_chores.comments)
 })
 

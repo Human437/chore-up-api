@@ -4,105 +4,105 @@ function makeChoresArray(){
       "id":1,
       "name":"Walk the dog",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":2,
       "name":"Take Jack to school",
       "value":20,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":3,
       "name":"Go to the PO box",
       "value":20,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":4,
       "name":"Buy groceries",
       "value":20,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":5,
       "name":"Water the plants",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":6,
       "name":"Do the laundry",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":7,
       "name":"Take out the trash",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":8,
       "name":"Do the laundry",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":9,
       "name":"Take out the trash",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":10,
       "name":"Do the laundry",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":11,
       "name":"Take out the trash",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":12,
       "name":"Feed the fish",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":13,
       "name":"Vacuum the carpet",
       "value":30,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":14,
       "name":"Water the plants",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
       "id":15,
       "name":"Clean the fridge",
       "value":30,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
   ]
@@ -257,7 +257,7 @@ function makeReturnedUser_ChoresArray(){
       "chore_id":1,
       "name":"Walk the dog",
       "value":10,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
@@ -266,7 +266,7 @@ function makeReturnedUser_ChoresArray(){
       "chore_id":2,
       "name":"Take Jack to school",
       "value":20,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
     {
@@ -275,7 +275,7 @@ function makeReturnedUser_ChoresArray(){
       "chore_id":3,
       "name":"Go to the PO box",
       "value":20,
-      "status":"Incomplete",
+      "done":false,
       "comments":""
     },
   ]

@@ -9,7 +9,7 @@ const serializeChore = chore => ({
   id: chore.id,
   name: xss(chore.name),
   value: Number(xss(chore.value)),
-  status: xss(chore.status),
+  done: xss(chore.done) === 'true',
   comments: xss(chore.comments)
 })
 
@@ -17,8 +17,8 @@ ChoresRouter
   .route('/')
   .post(jsonParser,(req,res,next)=>{
     const knexInstance = req.app.get('db')
-    const {name,value,status,comments} = req.body
-    const newChore = {name,value,status,comments}
+    const {name,value,done,comments} = req.body
+    const newChore = {name,value,done,comments}
     for (const [key,value] of Object.entries(newChore))
     if(typeof value === 'undefined')
     return res.status(400).json({
@@ -54,14 +54,14 @@ ChoresRouter
   })
   .patch(jsonParser,(req,res,next) => {
     const knexInstance = req.app.get('db')
-    const {value,status,comments} = req.body
-    const choreInfoToUpdate = {value,status,comments}
+    const {value,done,comments} = req.body
+    const choreInfoToUpdate = {value,done,comments}
     const id = req.params.choreId
 
-    if (typeof value === 'undefined' && typeof status === 'undefined' && typeof comments === 'undefined'){
+    if (typeof value === 'undefined' && typeof done === 'undefined' && typeof comments === 'undefined'){
       return res.status(400).json({
         error: {
-          message: `Request body must contain at least one of 'value', 'status', or 'comments'`
+          message: `Request body must contain at least one of 'value', 'done', or 'comments'`
         }
       })
     }

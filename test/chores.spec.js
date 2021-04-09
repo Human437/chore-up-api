@@ -56,7 +56,7 @@ describe('Chores Endpoints', () => {
       it('responds with 204 and updates the db when all fields are provided', () =>{
         const updatedChore = {
           value: 30,
-          status: 'In Process',
+          done: true,
           comments: "Test update for chore"
         }
         const expectedChore = {
@@ -128,7 +128,7 @@ describe('Chores Endpoints', () => {
       const newChore = {
         name: "Test chore",
         value: 10,
-        status: "Done",
+        done: false,
         comments: "This is a test chore"
       }
       it('Adds a new chore and returns with 201 and the chore just added', () => {
@@ -140,7 +140,7 @@ describe('Chores Endpoints', () => {
         .expect(res => {
           expect(res.body.name).to.eql(newChore.name)
           expect(res.body.value).to.eql(newChore.value)
-          expect(res.body.status).to.eql(newChore.status)
+          expect(res.body.done).to.eql(newChore.done)
           expect(res.body.comments).to.eql(newChore.comments)
         })
         .then(res =>
