@@ -1,4 +1,4 @@
-INSERT INTO families(id,admin,code_to_join)
+INSERT INTO families(admin,code_to_join)
 VALUES
-  (1,1,'aJk3T')
+  (1,'aJk3T')
 ;
