@@ -27,7 +27,13 @@ Family_MembersRouter
   .route('/family/:familyId')
   .get((req,res,next) => {
     const knexInstance = req.app.get('db')
-    Family_MembersService.getAllMembersByFamilyId(knexInstance,req.params.familyId)
+    const familyId = req.params.familyId
+    if(typeof familyId === 'undefined'){
+      return res.status(400).json({
+        error:{message: "Missing familyId in parameters"}
+      })
+    }
+    Family_MembersService.getAllMembersByFamilyId(knexInstance,familyId)
       .then(family_members => {
         res.json(family_members.map(serializeJoinedFamily_Members))
         next()
@@ -39,7 +45,13 @@ Family_MembersRouter
   .route('/user/:userId')
   .get((req,res,next) => {
     const knexInstance = req.app.get('db')
-    Family_MembersService.getFamily_MemberByUserId(knexInstance,req.params.userId)
+    const userId = req.params.userId
+    if(typeof userId === 'undefined'){
+      return res.status(400).json({
+        error:{message: "Missing userId in parameters"}
+      })
+    }
+    Family_MembersService.getFamily_MemberByUserId(knexInstance,userId)
       .then(family_member => {
         res.json(family_member)
         next()
