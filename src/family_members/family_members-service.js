@@ -25,8 +25,11 @@ const Family_MembersService = {
       .where({id})
       .delete()
   },
-  getFamily_MembersById(knex,id){
+  getFamily_MembersByFamily_MemberId(knex,id){
     return knex.from('family_members').select('*').where('id',id).first()
+  },
+  getFamily_MemberByUserId(knex,userId){
+    return knex.from('family_members').select('*').where('user_id',userId).first()
   }
 }
 
