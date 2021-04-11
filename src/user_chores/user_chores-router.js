@@ -22,6 +22,33 @@ const serializeUser_Chores = user_chores => ({
 })
 
 User_ChoresRouter
+  .route('/chore/:choreId')
+  // .all((req,res,next) => {
+  //   const knexInstance = req.app.get('db')
+  //   User_ChoresService.getUser_ChoresById(knexInstance,req.params.user_choreId)
+  //     .then(user_chore => {
+  //       if(!user_chore){
+  //         return res.status(404).json({
+  //           error: {message: `User_chore doesn't exist`}
+  //         })
+  //       }
+  //       res.user_chore = user_chore
+  //       next()
+  //     })
+  //     .catch(next)
+  // })
+  .delete((req,res,next) => {
+    const knexInstance = req.app.get('db')
+    const id = req.params.choreId
+    console.log(id)
+    User_ChoresService.deleteUser_ChoreByChoreId(knexInstance,id)
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
+
+User_ChoresRouter
   .route('/user/:userId')
   .get((req,res,next) => {
     const knexInstance = req.app.get('db')

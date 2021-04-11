@@ -23,7 +23,10 @@ const User_ChoresService = {
   },
   getUser_ChoresById(knex,id){
     return knex.from('user_chores').select('*').where('id',id).first()
-  }
+  },
+  deleteUser_ChoreByChoreId(knex,choreId){
+    return knex.from('user_chores').select('*').where('chore_id',choreId).delete()
+  },
 }
 
 module.exports = User_ChoresService
