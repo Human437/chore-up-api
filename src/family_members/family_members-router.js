@@ -35,7 +35,19 @@ Family_MembersRouter
       .catch(next)
   })
 
-  Family_MembersRouter
+Family_MembersRouter
+  .route('/user/:userId')
+  .get((req,res,next) => {
+    const knexInstance = req.app.get('db')
+    Family_MembersService.getFamily_MemberByUserId(knexInstance,req.params.userId)
+      .then(family_member => {
+        res.json(family_member)
+        next()
+      })
+      .catch(next)
+  })
+
+Family_MembersRouter
   .route('/')
   .post(jsonParser,(req,res,next) => {
     const knexInstance = req.app.get('db')
