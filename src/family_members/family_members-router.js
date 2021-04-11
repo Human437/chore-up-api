@@ -85,7 +85,7 @@ Family_MembersRouter
   .route('/:family_memberId')
   .all((req,res,next) => {
     const knexInstance = req.app.get('db')
-    Family_MembersService.getFamily_MembersById(knexInstance,req.params.family_memberId)
+    Family_MembersService.getFamily_MembersByFamily_MemberId(knexInstance,req.params.family_memberId)
       .then(family_member => {
         if(!family_member){
           return res.status(404).json({
