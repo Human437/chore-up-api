@@ -1,26 +1,55 @@
-# Express Boilerplate!
+# Chore Up
 
-This is a boilerplate project used for starting new projects!
+When it comes to young and small children, exposing them to responsibility is important, but not necessarily the easiest thing to do. Chore Up aims to gamify doing chores  to make doing chores seem more interesting and to teach them that they will be held accountable. By marking a chore as done, the child is communicating that they have  
+the task at hand and helps to build trust between the child and the parent. Should the child have lied about completion it is up to the parent to decide what the appropriate  
+couse of action is considering the child has now not only lied but also disregarded their responsibility.
 
-## Set up
+This is the back-end of the app. You can check out the repo for the client [here](https://github.com/Human437/chore-up-client) or you can view it live [here](https://chore-up-client.vercel.app/).
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+#### Dummy Admin Account Info
+- Email: john-doe@test.com
+- Password: aB3!bnmv
+- Dummy Family Code: f3Zg5wq2
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+#### Dummy User Account Info
+- Email: jake-doe@test.com
+- Password: aB3!bnmv
 
-## Scripts
+### New Admin Demo
+![](./gifsForReadMe/newAdmin.gif)
 
-Start the application `npm start`
+### New Regular User Demo
+![](./gifsForReadMe/newRegUser.gif)
 
-Start nodemon for the application `npm run dev`
+### Returning Admin Demo
+![](./gifsForReadMe/returningAdmin.gif)
 
-Run the tests `npm test`
+### Returning Regular User Demo
+![](./gifsForReadMe/returningRegUser.gif)
 
-## Deploying
+### Technology Used
+- Node.js
+- Express
+- Supertest
+- Mocha and Chai
+- PostgresSQL
+- Knex.js
+- Heroku
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's main branch.
+### Front-end
+This API should be used in conjunction with the client made for this project which can be found [here](https://github.com/Human437/chore-up-client).
+
+### Endpoints
+
+The API is RESTful and all requests must be made with a authorization token. You can set your own authorization token in your own `.env` file. Follow the format for the `.env` file below.
+````
+API_TOKEN=INSERT-YOUR-TOKEN-HERE
+DATABASE_URL=INSERT-YOUR-DATABASE-URL-HERE
+TEST_DATABASE_URL=INSERT-YOUR-TEST-DATABASE-URL-HERE
+````
+
+- #### Chores: https://chore-up.herokuapp.com/api/chores
+- #### Users: https://chore-up.herokuapp.com/api/users  
+- #### Families: https://chore-up.herokuapp.com/api/families  
+- #### User_Chores: https://chore-up.herokuapp.com/api/user_chores  
+- #### Family_Members: https://chore-up.herokuapp.com/api/family_members
