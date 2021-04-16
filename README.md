@@ -9,7 +9,7 @@ This is the back-end of the app. You can check out the repo for the client [here
 #### Dummy Admin Account Info
 - Email: john-doe@test.com
 - Password: aB3!bnmv
-- Dummy Family Code: f3Zg5wq2
+- Dummy Family Code: sGvElaiz
 
 #### Dummy User Account Info
 - Email: jake-doe@test.com
