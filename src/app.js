@@ -28,10 +28,6 @@ app.use('/api/users',UsersRouter)
 app.use('/api/user_chores',User_ChoresRouter)
 app.use('/api/family_members',Family_MembersRouter)
 
-app.get('/',(req,res)=>{
-  res.send('Hello, world!')
-})
-
 app.use(function errorHandler(error, req, res, next) {
   let response
   if (NODE_ENV === 'production') {
